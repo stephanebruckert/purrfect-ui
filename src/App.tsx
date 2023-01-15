@@ -13,18 +13,19 @@ function App() {
     onMessage: (event: WebSocketEventMap['message']) => fetchData()
   });
 
-  const [user, setUser] = useState({
-    'total_cancelled': '',
-    'total_orders': '',
-    'total_last_month': '',
-    'total_in_progress': '',
-    'revenue': '',
+  const [stats, setStats] = useState({
+    total_cancelled: '',
+    total_orders: '',
+    total_last_month: '',
+    total_in_progress: '',
+    revenue: '',
+    totals_products: {}
   });
 
   const fetchData = () => {
     return fetch("http://localhost:3000/stats")
         .then((response) => response.json())
-        .then((data) => setUser(data));
+        .then((data) => setStats(data));
   }
 
   useEffect(() => {
@@ -36,12 +37,13 @@ function App() {
       <header className="App-header">
         <p>Hi Alice, here are your live statistics:</p>
         <ul>
-          <li>{user['total_orders']} total orders</li>
-          <li>{user['total_last_month']} orders in the last month</li>
-          <li>{user['total_in_progress']} orders in progress</li>
-          <li>£{user['revenue']} revenue</li>
+          <li>{stats['total_orders']} total orders</li>
+          <li>{stats['total_last_month']} orders in the last month</li>
+          <li>{stats['total_in_progress']} orders in progress</li>
+          <li>£{stats['revenue']} revenue</li>
         </ul>
-        <Chart />
+        <Chart counts={Object.values(stats['totals_products'])}
+               labels={Object.keys(stats['totals_products'])} />
       </header>
     </div>
   );
