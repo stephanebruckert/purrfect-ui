@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import useWebSocket from 'react-use-websocket';
 
 function App() {
+  const [socketUrl] = useState('ws://localhost:3000/ws');
+
+  useWebSocket(socketUrl, {
+    onOpen: () => console.log('WebSocket connection opened.'),
+    onClose: () => console.log('WebSocket connection closed.'),
+    shouldReconnect: (closeEvent) => true,
+    onMessage: (event: WebSocketEventMap['message']) => fetchData()
+  });
+
   const [user, setUser] = useState({
     'total_cancelled': '',
     'total_orders': ''
