@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import useWebSocket from 'react-use-websocket';
+import Chart from './Chart'
 
 function App() {
   const [socketUrl] = useState('ws://localhost:3000/ws');
@@ -34,6 +35,7 @@ function App() {
           <li>Total cancelled: {user['total_cancelled']}</li>
           <li>Total orders: {user['total_orders']}</li>
         </ul>
+        <Chart />
       </header>
     </div>
   );
