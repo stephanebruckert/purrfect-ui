@@ -11,23 +11,22 @@ const Chart: FC<Props> = ({}) => {
             zoom: {
                 enabled: true
             }
-        }
+        },
+        labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E']
     };
 
     const series = [
         {
-            name: "All Tasks",
-            data: [31, 40, 28, 51, 42, 109, 100]
+            name: "Bar",
+            data: [31, 40, 28, 51, 42, 109, 100],
+
         },
-        {
-            name: "My Tasks",
-            data: [11, 32, 45, 32, 34, 52, 41]
-        }
+
     ];
 
     return (
         <ReactApexChart
-            type="line"
+            type="bar"
             options={options}
             series={series}
             height={350}
